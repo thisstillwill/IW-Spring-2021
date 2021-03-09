@@ -8,7 +8,7 @@ SIZE = WIDTH, HEIGHT = 800, 800
 TITLE = 'Visualizer'
 ROWS = 8
 COLS = 8
-BORDER = 4
+BORDER = 1
 w = WIDTH / COLS
 h = HEIGHT / ROWS
 # Constants
