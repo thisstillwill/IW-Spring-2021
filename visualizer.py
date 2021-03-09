@@ -8,6 +8,7 @@ SIZE = WIDTH, HEIGHT = 800, 800
 TITLE = 'Visualizer'
 ROWS = 8
 COLS = 8
+BORDER = 4
 w = WIDTH / COLS
 h = HEIGHT / ROWS
 # Constants
@@ -27,7 +28,7 @@ class Node:
         self.blocked = False
     def draw(self):
         color = BLACK if self.blocked else WHITE
-        pygame.draw.rect(screen, color, (self.x * w, self.y * h, w, h))
+        pygame.draw.rect(screen, color, (self.x * w + BORDER, self.y * h + BORDER, w - BORDER, h - BORDER))
         pygame.display.update()
 
 # Handle mouse click
@@ -46,6 +47,7 @@ screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption(TITLE)
 
 # Create nodes
+screen.fill(GREY)
 graph = [[0 for c in range(COLS)] for r in range(ROWS)]
 for i in range(COLS):
         for j in range(ROWS):
