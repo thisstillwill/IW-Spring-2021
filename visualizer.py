@@ -1,5 +1,8 @@
 import sys
+from enum import Enum, auto
 import pygame
+from pygame import cursors
+from pygame import key
 from pygame.constants import KMOD_CTRL
 from pygame.cursors import tri_right
 
@@ -15,6 +18,11 @@ h = HEIGHT / ROWS
 WHITE = pygame.Color(255, 255, 255)
 GREY = pygame.Color(128, 128, 128)
 BLACK = pygame.Color(0, 0, 0)
+
+# All possible gamestates
+class GameState(Enum):
+    INPUT = auto()
+    SEARCH = auto()
 
 # A single vertex in the graph
 class Node:
@@ -55,18 +63,28 @@ for i in range(COLS):
             graph[i][j].draw()
 
 # Main game loop
+current_state = GameState.INPUT
 while True:
-    # Handle events
     events = pygame.event.get()
+    # Check if user quits the game
     for event in events:
-        mods = pygame.key.get_mods()
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        elif (pygame.mouse.get_pressed()[1] or mods & 
-        pygame.KMOD_CTRL and pygame.mouse.get_pressed()[0]):
-            mousePosition = pygame.mouse.get_pos()
-            handleMouseClick(mousePosition, False)
-        elif pygame.mouse.get_pressed()[0]:
-            mousePosition = pygame.mouse.get_pos()
-            handleMouseClick(mousePosition, True)
+    # Handle current game state
+    if current_state == GameState.INPUT: # Allow user input to edit playfield
+        for event in events:
+            # Block or unblock selected nodes
+            mods = pygame.key.get_mods()
+            if (pygame.mouse.get_pressed()[1] or mods & 
+            pygame.KMOD_CTRL and pygame.mouse.get_pressed()[0]):
+                mousePosition = pygame.mouse.get_pos()
+                handleMouseClick(mousePosition, False)
+            elif pygame.mouse.get_pressed()[0]:
+                mousePosition = pygame.mouse.get_pos()
+                handleMouseClick(mousePosition, True)
+            # End user input period
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                current_state = GameState.SEARCH
+    elif current_state == GameState.SEARCH: # Visualize graph traversal
+        pass
