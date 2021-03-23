@@ -3,6 +3,7 @@ from enum import Enum, auto
 import pygame
 from pygame import cursors
 from pygame import key
+from pygame import color
 from pygame.constants import KMOD_CTRL
 from pygame.cursors import tri_right
 
@@ -14,15 +15,24 @@ COLS = 8
 BORDER = 1
 w = WIDTH / COLS
 h = HEIGHT / ROWS
-# Constants
+# Other constants
 WHITE = pygame.Color(255, 255, 255)
 GREY = pygame.Color(128, 128, 128)
 BLACK = pygame.Color(0, 0, 0)
+RED = pygame.Color(255, 0, 0)
+BLUE = pygame.Color(0, 0, 255)
 
 # All possible gamestates
 class GameState(Enum):
     INPUT = auto()
     SEARCH = auto()
+
+# All possible Node types
+class NodeType(Enum):
+    UNBLOCKED = auto()
+    BLOCKED = auto()
+    START = auto()
+    END = auto()
 
 # A single vertex in the graph
 class Node:
@@ -32,21 +42,27 @@ class Node:
         self.y = y
         # Neighboring vertices
         self.neighbors = []
-        # Is blocked
-        self.blocked = False
+        # Type of node
+        self.type = NodeType.UNBLOCKED
     def draw(self):
-        color = BLACK if self.blocked else WHITE
+        color = WHITE
+        if self.type == NodeType.BLOCKED:
+            color = BLACK
+        elif self.type == NodeType.START:
+            color = RED
+        elif self.type == NodeType.END:
+            color = BLUE
         pygame.draw.rect(screen, color, (self.x * w + BORDER, self.y * h + BORDER, w - BORDER, h - BORDER))
         pygame.display.update()
 
 # Handle mouse click
-def handleMouseClick(x, block):
+def handleMouseClick(x, type):
     t = x[0]
     w = x[1]
     g1 = t // (WIDTH // COLS)
     g2 = w // (HEIGHT // ROWS)
     node = graph[g1][g2]
-    node.blocked = True if block else False
+    node.type = type
     node.draw()
 
 # Initialize game
@@ -74,15 +90,15 @@ while True:
     # Handle current game state
     if current_state == GameState.INPUT: # Allow user input to edit playfield
         for event in events:
-            # Block or unblock selected nodes
+            # Set type of selected node
             mods = pygame.key.get_mods()
             if (pygame.mouse.get_pressed()[1] or mods & 
             pygame.KMOD_CTRL and pygame.mouse.get_pressed()[0]):
                 mousePosition = pygame.mouse.get_pos()
-                handleMouseClick(mousePosition, False)
+                handleMouseClick(mousePosition, NodeType.UNBLOCKED)
             elif pygame.mouse.get_pressed()[0]:
                 mousePosition = pygame.mouse.get_pos()
-                handleMouseClick(mousePosition, True)
+                handleMouseClick(mousePosition, NodeType.BLOCKED)
             # End user input period
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 current_state = GameState.SEARCH
