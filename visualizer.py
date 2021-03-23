@@ -55,21 +55,22 @@ class Node:
         pygame.display.update()
 
 # Interact with selected node
-def handleMouseClick(x, type):
+def handleMouseClick(x, type, graph):
     t = x[0]
     w = x[1]
     g1 = t // (WIDTH // COLS)
     g2 = w // (HEIGHT // ROWS)
     node = graph[g1][g2]
-    node.type = type
-    node.draw()
+    if node.type != node.NodeType.START and node.type != node.NodeType.END:
+        node.type = type
+        node.draw()
 
 # Initialize game
 pygame.init()
 screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption(TITLE)
 
-# Create nodes
+# Create graph
 screen.fill(GREY)
 graph = [[0 for c in range(COLS)] for r in range(ROWS)]
 for i in range(COLS):
@@ -77,29 +78,39 @@ for i in range(COLS):
             graph[i][j] = Node(i, j)
             graph[i][j].draw()
 
+# Set start and end nodes
+start = graph[0][COLS - 1]
+start.type = Node.NodeType.START
+start.draw()
+start = graph[ROWS - 1][0]
+start.type = Node.NodeType.END
+start.draw()
+
 # Main game loop
 current_state = GameState.INPUT
 while True:
     events = pygame.event.get()
-    # Check if user quits the game
-    for event in events:
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
     # Handle current game state
     if current_state == GameState.INPUT: # Allow user input to edit playfield
         for event in events:
+            # Check if user quits the game
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
             # Set type of selected node
-            mods = pygame.key.get_mods()
-            if (pygame.mouse.get_pressed()[1] or mods & 
+            elif (pygame.mouse.get_pressed()[1] or pygame.key.get_mods() & 
             pygame.KMOD_CTRL and pygame.mouse.get_pressed()[0]):
                 mousePosition = pygame.mouse.get_pos()
-                handleMouseClick(mousePosition, Node.NodeType.UNBLOCKED)
+                handleMouseClick(mousePosition, Node.NodeType.UNBLOCKED, graph)
             elif pygame.mouse.get_pressed()[0]:
                 mousePosition = pygame.mouse.get_pos()
-                handleMouseClick(mousePosition, Node.NodeType.BLOCKED)
+                handleMouseClick(mousePosition, Node.NodeType.BLOCKED, graph)
             # End user input period
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 current_state = GameState.SEARCH
     elif current_state == GameState.SEARCH: # Visualize graph traversal
-        pass
+        for event in events:
+            # Check if user quits the game
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
