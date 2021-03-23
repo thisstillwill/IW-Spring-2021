@@ -27,15 +27,14 @@ class GameState(Enum):
     INPUT = auto()
     SEARCH = auto()
 
-# All possible Node types
-class NodeType(Enum):
-    UNBLOCKED = auto()
-    BLOCKED = auto()
-    START = auto()
-    END = auto()
-
 # A single vertex in the graph
 class Node:
+    # All possible node types
+    class NodeType(Enum):
+        UNBLOCKED = auto()
+        BLOCKED = auto()
+        START = auto()
+        END = auto()
     def __init__(self, x, y) -> None:
         # Position on screen
         self.x = x
@@ -43,19 +42,19 @@ class Node:
         # Neighboring vertices
         self.neighbors = []
         # Type of node
-        self.type = NodeType.UNBLOCKED
+        self.type = self.NodeType.UNBLOCKED
     def draw(self):
         color = WHITE
-        if self.type == NodeType.BLOCKED:
+        if self.type == self.NodeType.BLOCKED:
             color = BLACK
-        elif self.type == NodeType.START:
+        elif self.type == self.NodeType.START:
             color = RED
-        elif self.type == NodeType.END:
+        elif self.type == self.NodeType.END:
             color = BLUE
         pygame.draw.rect(screen, color, (self.x * w + BORDER, self.y * h + BORDER, w - BORDER, h - BORDER))
         pygame.display.update()
 
-# Handle mouse click
+# Interact with selected node
 def handleMouseClick(x, type):
     t = x[0]
     w = x[1]
@@ -95,10 +94,10 @@ while True:
             if (pygame.mouse.get_pressed()[1] or mods & 
             pygame.KMOD_CTRL and pygame.mouse.get_pressed()[0]):
                 mousePosition = pygame.mouse.get_pos()
-                handleMouseClick(mousePosition, NodeType.UNBLOCKED)
+                handleMouseClick(mousePosition, Node.NodeType.UNBLOCKED)
             elif pygame.mouse.get_pressed()[0]:
                 mousePosition = pygame.mouse.get_pos()
-                handleMouseClick(mousePosition, NodeType.BLOCKED)
+                handleMouseClick(mousePosition, Node.NodeType.BLOCKED)
             # End user input period
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 current_state = GameState.SEARCH
