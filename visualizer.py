@@ -35,6 +35,7 @@ class Node:
         BLOCKED = auto()
         START = auto()
         END = auto()
+    # Create a new node
     def __init__(self, x, y) -> None:
         # Position on screen
         self.x = x
@@ -43,6 +44,7 @@ class Node:
         self.neighbors = []
         # Type of node
         self.type = self.NodeType.UNBLOCKED
+    # Draw the node on the screen
     def draw(self):
         color = WHITE
         if self.type == self.NodeType.BLOCKED:
@@ -53,6 +55,18 @@ class Node:
             color = BLUE
         pygame.draw.rect(screen, color, (self.x * w + BORDER, self.y * h + BORDER, w - BORDER, h - BORDER))
         pygame.display.update()
+    # Connect the node to each of its neighbors
+    def addNeighbors(self, graph):
+        x = self.x
+        y = self.y
+        if x < COLS-1 and graph[self.x + 1][y].type == Node.NodeType.UNBLOCKED:
+            self.neighbors.append(graph[self.x + 1][y])
+        if x > 0 and graph[self.x - 1][y].type == Node.NodeType.UNBLOCKED:
+            self.neighbors.append(graph[self.x - 1][y])
+        if y < ROWS-1 and graph[self.x][y + 1].type == Node.NodeType.UNBLOCKED:
+            self.neighbors.append(graph[self.x][y + 1])
+        if y > 0 and graph[self.x][y - 1].type == Node.NodeType.UNBLOCKED:
+            self.neighbors.append(graph[self.x][y - 1])
 
 # Interact with selected node
 def handleMouseClick(x, type, graph):
@@ -82,9 +96,9 @@ for i in range(COLS):
 start = graph[0][COLS - 1]
 start.type = Node.NodeType.START
 start.draw()
-start = graph[ROWS - 1][0]
-start.type = Node.NodeType.END
-start.draw()
+end = graph[ROWS - 1][0]
+end.type = Node.NodeType.END
+end.draw()
 
 # Main game loop
 current_state = GameState.INPUT
@@ -107,6 +121,12 @@ while True:
                 handleMouseClick(mousePosition, Node.NodeType.BLOCKED, graph)
             # End user input period
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                # Set neighbors of each node
+                for i in range(COLS):
+                    for j in range(ROWS):
+                        graph[i][j].addNeighbors(graph)
+                print(start.neighbors)
+                print(end.neighbors)
                 current_state = GameState.SEARCH
     elif current_state == GameState.SEARCH: # Visualize graph traversal
         for event in events:
