@@ -1,17 +1,14 @@
 import sys
 from enum import Enum, auto
 import pygame
-from pygame import cursors
-from pygame import key
-from pygame import color
-from pygame.constants import KMOD_CTRL
+from pygame.constants import KMOD_CTRL, USEREVENT
 from pygame.cursors import tri_right
 
 # Game settings
 SIZE = WIDTH, HEIGHT = 800, 800
 TITLE = 'Visualizer'
-ROWS = 8
-COLS = 8
+ROWS = 20
+COLS = 20
 BORDER = 1
 w = WIDTH / COLS
 h = HEIGHT / ROWS
@@ -22,6 +19,8 @@ BLACK = pygame.Color(0, 0, 0)
 RED = pygame.Color(255, 0, 0)
 BLUE = pygame.Color(0, 0, 255)
 GREEN = pygame.Color(0, 255, 0)
+GOLD = pygame.Color(255, 215, 0)
+GOLDENROD = pygame.Color(218, 165, 32)
 
 # All possible gamestates
 class GameState(Enum):
@@ -77,28 +76,39 @@ def handleMouseClick(x, type, graph):
     g1 = t // (WIDTH // COLS)
     g2 = w // (HEIGHT // ROWS)
     node = graph[g1][g2]
-    if node.type != node.NodeType.START and node.type != node.NodeType.GOAL:
+    if node.type != Node.NodeType.START and node.type != Node.NodeType.GOAL:
         node.type = type
         node.draw()
 
 # Breadth-first search to find the shortest path between two nodes
 # Adapted from a blog post by Valerio Valardo on 03/18/2017
 # https://pythoninwonderland.wordpress.com/2017/03/18/how-to-implement-breadth-first-search-in-python/
-def bfs_shortest_path(start, goal):
+# Additional references taken from COS 226: Algorithms and Data Structures
+# https://www.cs.princeton.edu/courses/archive/fall13/cos226/lectures/41UndirectedGraphs.pdf
+def bfs_shortest_path_visualize(start, goal):
     explored = []
     queue = [[start]]
     if start == goal:
         raise RuntimeError('Start and Goal nodes cannot be the same!')
     while queue:
+        if pygame.event.get(pygame.QUIT):
+            pygame.quit()
+            sys.exit()
         path = queue.pop(0)
         node = path[-1]
         if node not in explored:
+            if node.type == Node.NodeType.UNBLOCKED:
+                pygame.draw.rect(screen, GOLD, (node.x * w + BORDER, node.y * h + BORDER, w - BORDER, h - BORDER))
+                pygame.display.update()
             for neighbor in node.neighbors:
                 new_path = list(path)
                 new_path.append(neighbor)
                 queue.append(new_path)
                 if neighbor == goal:
                     return new_path
+                if neighbor.type == Node.NodeType.UNBLOCKED and neighbor not in explored:
+                    pygame.draw.rect(screen, GOLDENROD, (neighbor.x * w + BORDER, neighbor.y * h + BORDER, w - BORDER, h - BORDER))
+                    pygame.display.update()
             explored.append(node)
     raise RuntimeError('No path exists between start and goal nodes!')
 
@@ -156,11 +166,11 @@ while True:
                 pygame.quit()
                 sys.exit()
             else:
-                path = bfs_shortest_path(start, goal)
+                path = bfs_shortest_path_visualize(start, goal)
                 for node in path:
-                    if node != start and node != goal:
+                    if node.type == Node.NodeType.UNBLOCKED:
                         pygame.draw.rect(screen, GREEN, (node.x * w + BORDER, node.y * h + BORDER, w - BORDER, h - BORDER))
-                        pygame.display.update()
+                    pygame.display.update()
                 current_state = GameState.END
     elif current_state == GameState.END: # End the game
         for event in events:
