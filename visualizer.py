@@ -1,8 +1,11 @@
+import argparse
 import sys
-from enum import Enum, auto
+from os import environ
+environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import pygame
 from pygame.constants import KMOD_CTRL, USEREVENT
 from pygame.cursors import tri_right
+from enum import Enum, auto
 
 # Game settings
 SIZE = WIDTH, HEIGHT = 800, 800
@@ -46,7 +49,7 @@ class Node:
         # Type of node
         self.type = self.NodeType.UNBLOCKED
     # Draw the node on the screen
-    def draw(self):
+    def draw(self, screen):
         color = WHITE
         if self.type == self.NodeType.BLOCKED:
             color = BLACK
@@ -70,7 +73,7 @@ class Node:
             self.neighbors.append(graph[self.x][y - 1])
 
 # Interact with selected node
-def handleMouseClick(x, type, graph):
+def handleMouseClick(x, type, graph, screen):
     t = x[0]
     w = x[1]
     g1 = t // (WIDTH // COLS)
@@ -78,14 +81,14 @@ def handleMouseClick(x, type, graph):
     node = graph[g1][g2]
     if node.type != Node.NodeType.START and node.type != Node.NodeType.GOAL:
         node.type = type
-        node.draw()
+        node.draw(screen)
 
 # Breadth-first search to find the shortest path between two nodes
 # Adapted from a blog post by Valerio Valardo on 03/18/2017
 # https://pythoninwonderland.wordpress.com/2017/03/18/how-to-implement-breadth-first-search-in-python/
 # Additional references taken from COS 226: Algorithms and Data Structures
 # https://www.cs.princeton.edu/courses/archive/fall13/cos226/lectures/41UndirectedGraphs.pdf
-def bfs_shortest_path_visualize(start, goal):
+def bfs_shortest_path_visualize(start, goal, screen):
     explored = []
     queue = [[start]]
     if start == goal:
@@ -112,71 +115,79 @@ def bfs_shortest_path_visualize(start, goal):
             explored.append(node)
     raise RuntimeError('No path exists between start and goal nodes!')
 
-# Initialize game
-pygame.init()
-screen = pygame.display.set_mode(SIZE)
-pygame.display.set_caption(TITLE)
+def main():
+    # Set and parse argumennts
+    parser = argparse.ArgumentParser(description='Visualize graph traversal')
+    args = parser.parse_args()
 
-# Create graph
-screen.fill(GREY)
-graph = [[0 for c in range(COLS)] for r in range(ROWS)]
-for i in range(COLS):
-        for j in range(ROWS):
-            graph[i][j] = Node(i, j)
-            graph[i][j].draw()
+    # Initialize game
+    pygame.init()
+    screen = pygame.display.set_mode(SIZE)
+    pygame.display.set_caption(TITLE)
 
-# Set start and end nodes
-start = graph[0][COLS - 1]
-start.type = Node.NodeType.START
-start.draw()
-goal = graph[ROWS - 1][0]
-goal.type = Node.NodeType.GOAL
-goal.draw()
+    # Create graph
+    screen.fill(GREY)
+    graph = [[0 for c in range(COLS)] for r in range(ROWS)]
+    for i in range(COLS):
+            for j in range(ROWS):
+                graph[i][j] = Node(i, j)
+                graph[i][j].draw(screen)
 
-# Main game loop
-current_state = GameState.INPUT
-while True:
-    events = pygame.event.get()
-    # Handle current game state
-    if current_state == GameState.INPUT: # Allow user input to edit playfield
-        for event in events:
-            # Check if user quits the game
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            # Set type of selected node
-            elif (pygame.mouse.get_pressed()[1] or pygame.key.get_mods() & 
-            pygame.KMOD_CTRL and pygame.mouse.get_pressed()[0]):
-                mousePosition = pygame.mouse.get_pos()
-                handleMouseClick(mousePosition, Node.NodeType.UNBLOCKED, graph)
-            elif pygame.mouse.get_pressed()[0]:
-                mousePosition = pygame.mouse.get_pos()
-                handleMouseClick(mousePosition, Node.NodeType.BLOCKED, graph)
-            # End user input period
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                # Set neighbors of each node
-                for i in range(COLS):
-                    for j in range(ROWS):
-                        graph[i][j].addNeighbors(graph)
-                current_state = GameState.SEARCH
-    elif current_state == GameState.SEARCH: # Visualize graph traversal
-        for event in events:
-            # Check if user quits the game
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            else:
-                path = bfs_shortest_path_visualize(start, goal)
-                for node in path:
-                    if node.type == Node.NodeType.UNBLOCKED:
-                        pygame.draw.rect(screen, GREEN, (node.x * w + BORDER, node.y * h + BORDER, w - BORDER, h - BORDER))
-                    pygame.display.update()
-                current_state = GameState.END
-    elif current_state == GameState.END: # End the game
-        for event in events:
-            # Check if user quits the game
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            else:
-                pass
+    # Set start and end nodes
+    start = graph[0][COLS - 1]
+    start.type = Node.NodeType.START
+    start.draw(screen)
+    goal = graph[ROWS - 1][0]
+    goal.type = Node.NodeType.GOAL
+    goal.draw(screen)
+
+    # Main game loop
+    current_state = GameState.INPUT
+    while True:
+        events = pygame.event.get()
+        # Handle current game state
+        if current_state == GameState.INPUT: # Allow user input to edit playfield
+            for event in events:
+                # Check if user quits the game
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                # Set type of selected node
+                elif (pygame.mouse.get_pressed()[1] or pygame.key.get_mods() & 
+                pygame.KMOD_CTRL and pygame.mouse.get_pressed()[0]):
+                    mousePosition = pygame.mouse.get_pos()
+                    handleMouseClick(mousePosition, Node.NodeType.UNBLOCKED, graph, screen)
+                elif pygame.mouse.get_pressed()[0]:
+                    mousePosition = pygame.mouse.get_pos()
+                    handleMouseClick(mousePosition, Node.NodeType.BLOCKED, graph, screen)
+                # End user input period
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    # Set neighbors of each node
+                    for i in range(COLS):
+                        for j in range(ROWS):
+                            graph[i][j].addNeighbors(graph)
+                    current_state = GameState.SEARCH
+        elif current_state == GameState.SEARCH: # Visualize graph traversal
+            for event in events:
+                # Check if user quits the game
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                else:
+                    path = bfs_shortest_path_visualize(start, goal, screen)
+                    for node in path:
+                        if node.type == Node.NodeType.UNBLOCKED:
+                            pygame.draw.rect(screen, GREEN, (node.x * w + BORDER, node.y * h + BORDER, w - BORDER, h - BORDER))
+                        pygame.display.update()
+                    current_state = GameState.END
+        elif current_state == GameState.END: # End the game
+            for event in events:
+                # Check if user quits the game
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                else:
+                    pass
+
+if __name__ == '__main__':
+    main()
