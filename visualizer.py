@@ -7,6 +7,8 @@ from pygame.constants import KMOD_CTRL, USEREVENT
 from pygame.cursors import tri_right
 from enum import Enum, auto
 
+import solutions
+
 # Game settings
 SIZE = WIDTH, HEIGHT = 800, 800
 TITLE = 'Visualizer'
@@ -22,13 +24,15 @@ BLACK = pygame.Color(0, 0, 0)
 RED = pygame.Color(255, 0, 0)
 BLUE = pygame.Color(0, 0, 255)
 GREEN = pygame.Color(0, 255, 0)
+PURPLE = pygame.Color(128, 0, 128)
 GOLD = pygame.Color(255, 215, 0)
 GOLDENROD = pygame.Color(218, 165, 32)
 
 # All possible gamestates
 class GameState(Enum):
     INPUT = auto()
-    SEARCH = auto()
+    DEMO = auto()
+    TEST = auto()
     END = auto()
 
 # A single vertex in the graph
@@ -50,8 +54,10 @@ class Node:
         self.type = self.NodeType.UNBLOCKED
     # Draw the node on the screen
     def draw(self, screen):
-        color = WHITE
-        if self.type == self.NodeType.BLOCKED:
+        color = None
+        if self.type == self.NodeType.UNBLOCKED:
+            color = WHITE
+        elif self.type == self.NodeType.BLOCKED:
             color = BLACK
         elif self.type == self.NodeType.START:
             color = RED
@@ -122,9 +128,6 @@ def main():
     parser.add_argument('-t', '--test', help='test the selected algorithm', default=False, action='store_true')
     args = parser.parse_args()
 
-    if (args.test):
-        print('TODO: Add testing')
-
     # Initialize game
     pygame.init()
     screen = pygame.display.set_mode(SIZE)
@@ -147,6 +150,8 @@ def main():
     goal.draw(screen)
 
     # Main game loop
+    reference_path = None
+    solution_path = None
     current_state = GameState.INPUT
     while True:
         events = pygame.event.get()
@@ -171,24 +176,54 @@ def main():
                     for i in range(COLS):
                         for j in range(ROWS):
                             graph[i][j].addNeighbors(graph)
-                    current_state = GameState.SEARCH
-        elif current_state == GameState.SEARCH: # Visualize graph traversal
+                    current_state = GameState.DEMO
+        elif current_state == GameState.DEMO: # Visualize graph traversal
             for event in events:
                 # Check if user quits the game
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 else:
-                    path = bfs_shortest_path_visualize(start, goal, screen)
-                    for node in path:
+                    # Select reference algorithm to use
+                    reference = None
+                    if (args.algorithm == 'bfs'):
+                        reference = bfs_shortest_path_visualize
+                    reference_path = reference(start, goal, screen)
+                    for node in reference_path:
                         if node.type == Node.NodeType.UNBLOCKED:
                             pygame.draw.rect(screen, GREEN, (node.x * w + BORDER, node.y * h + BORDER, w - BORDER, h - BORDER))
+                        pygame.display.update()
+                    if (args.test):
+                        current_state = GameState.TEST
+                    else:
+                        current_state = GameState.END
+        elif current_state == GameState.TEST: # Test student solution
+            for event in events:
+                # Check if user quits the game
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                    # Select student algorithm to use
+                    solution = None
+                    if (args.algorithm == 'bfs'):
+                        solution = solutions.bfs
+                    solution_path = solution(start, goal)
+                    for reference_node, solution_node in zip(reference_path, solution_path):
+                        # Student path contains incorrect node
+                        if reference_node.x != solution_node.x or reference_node.y != solution_node.y:
+                            raise Exception('In correct node in path!')
+                        if solution_node.type == Node.NodeType.UNBLOCKED:
+                            pygame.draw.rect(screen, PURPLE, (solution_node.x * w + BORDER, solution_node.y * h + BORDER, w - BORDER, h - BORDER))
                         pygame.display.update()
                     current_state = GameState.END
         elif current_state == GameState.END: # End the game
             for event in events:
                 # Check if user quits the game
                 if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     pygame.quit()
                     sys.exit()
                 else:
