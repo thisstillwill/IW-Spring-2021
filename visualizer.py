@@ -212,7 +212,7 @@ def main():
                     for reference_node, solution_node in zip(reference_path, solution_path):
                         # Student path contains incorrect node
                         if reference_node.x != solution_node.x or reference_node.y != solution_node.y:
-                            raise Exception('In correct node in path!')
+                            raise Exception('Incorrect node in path!')
                         if solution_node.type == Node.NodeType.UNBLOCKED:
                             pygame.draw.rect(screen, PURPLE, (solution_node.x * w + BORDER, solution_node.y * h + BORDER, w - BORDER, h - BORDER))
                         pygame.display.update()
