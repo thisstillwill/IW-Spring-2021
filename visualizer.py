@@ -118,7 +118,12 @@ def bfs_shortest_path_visualize(start, goal, screen):
 def main():
     # Set and parse argumennts
     parser = argparse.ArgumentParser(description='Visualize graph traversal')
+    parser.add_argument('algorithm', help="the algorithm to use", choices=['bfs'])
+    parser.add_argument('-t', '--test', help='test the selected algorithm', default=False, action='store_true')
     args = parser.parse_args()
+
+    if (args.test):
+        print('TODO: Add testing')
 
     # Initialize game
     pygame.init()
