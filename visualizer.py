@@ -3,8 +3,6 @@ import sys
 from os import environ
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 import pygame
-from pygame.constants import KMOD_CTRL, USEREVENT
-from pygame.cursors import tri_right
 from enum import Enum, auto
 
 import solutions
@@ -15,6 +13,7 @@ TITLE = 'Visualizer'
 ROWS = 20
 COLS = 20
 BORDER = 1
+PADDING = 20
 w = WIDTH / COLS
 h = HEIGHT / ROWS
 # Other constants
@@ -89,6 +88,16 @@ def handleMouseClick(x, type, graph, screen):
         node.type = type
         node.draw(screen)
 
+# Write a message on the screen
+def showMessage(text, font, screen):
+    message = font.render(text, True, BLACK)
+    message_rect = message.get_rect(center=(WIDTH / 2, HEIGHT / 2))
+    pygame.draw.rect(screen, WHITE, message_rect.inflate(PADDING, PADDING))
+    pygame.draw.rect(screen, GREY, message_rect.inflate(PADDING, PADDING), BORDER)
+    screen.blit(message, message_rect)
+    pygame.display.update()
+
+
 # Breadth-first search to find the shortest path between two nodes
 # Adapted from a blog post by Valerio Valardo on 03/18/2017
 # https://pythoninwonderland.wordpress.com/2017/03/18/how-to-implement-breadth-first-search-in-python/
@@ -132,6 +141,9 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode(SIZE)
     pygame.display.set_caption(TITLE)
+
+    # Initialize font for messages
+    font = pygame.font.SysFont(['systemfont'], 36)
 
     # Create graph
     screen.fill(GREY)
@@ -188,7 +200,13 @@ def main():
                     reference = None
                     if (args.algorithm == 'bfs'):
                         reference = bfs_shortest_path_visualize
-                    reference_path = reference(start, goal, screen)
+                    # Test if no path exists
+                    try:
+                        reference_path = reference(start, goal, screen)
+                    except RuntimeError as e:
+                        showMessage(str(e), font, screen)
+                        current_state = GameState.END
+                        continue
                     for node in reference_path:
                         if node.type == Node.NodeType.UNBLOCKED:
                             pygame.draw.rect(screen, GREEN, (node.x * w + BORDER, node.y * h + BORDER, w - BORDER, h - BORDER))
@@ -205,18 +223,44 @@ def main():
                     sys.exit()
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     # Select student algorithm to use
-                    solution = None
-                    if (args.algorithm == 'bfs'):
-                        solution = solutions.bfs
-                    solution_path = solution(start, goal)
-                    for reference_node, solution_node in zip(reference_path, solution_path):
-                        # Student path contains incorrect node
-                        if reference_node.x != solution_node.x or reference_node.y != solution_node.y:
-                            raise Exception('Incorrect node in path!')
-                        if solution_node.type == Node.NodeType.UNBLOCKED:
-                            pygame.draw.rect(screen, PURPLE, (solution_node.x * w + BORDER, solution_node.y * h + BORDER, w - BORDER, h - BORDER))
-                        pygame.display.update()
-                    current_state = GameState.END
+                    try:
+                        solution = None
+                        if (args.algorithm == 'bfs'):
+                            solution = solutions.bfs
+                    except AttributeError:
+                        showMessage('Missing solution for ' + args.algorithm + '!', font, screen)
+                        current_state = GameState.END
+                        continue
+                    # Run student solution
+                    try:
+                        solution_path = solution(start, goal)
+                        # Test for incorrect return type
+                        if not any(isinstance(node, Node) for node in solution_path):
+                            raise TypeError
+                    except TypeError:
+                        showMessage('Returned path type is incorrect!', font, screen)
+                        current_state = GameState.END
+                        continue
+                    # Test student solution
+                    try:
+                        # Test for incorrect path length
+                        if len(solution_path) < len(reference_path):
+                            raise Exception('Student path shorter than expected!')
+                        elif len(solution_path) > len(reference_path):
+                            raise Exception('Student path longer than expected!')
+                        for reference_node, solution_node in zip(reference_path, solution_path):
+                            # Test for incorrect node in student path
+                            if reference_node != solution_node:
+                                raise Exception('Incorrect node in path!')
+                            if solution_node.type == Node.NodeType.UNBLOCKED:
+                                pygame.draw.rect(screen, PURPLE, (solution_node.x * w + BORDER, solution_node.y * h + BORDER, w - BORDER, h - BORDER))
+                            pygame.display.update()
+                    except Exception as e:
+                        showMessage(str(e), font, screen)
+                    else:
+                        showMessage('All tests passed!', font, screen)
+                    finally:
+                        current_state = GameState.END
         elif current_state == GameState.END: # End the game
             for event in events:
                 # Check if user quits the game
