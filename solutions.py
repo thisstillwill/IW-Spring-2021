@@ -13,4 +13,3 @@ def bfs(start, goal):
                 if neighbor == goal:
                     return new_path
             explored.append(node)
-    

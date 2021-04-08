@@ -163,7 +163,6 @@ def main():
 
     # Main game loop
     reference_path = None
-    solution_path = None
     current_state = GameState.INPUT
     while True:
         events = pygame.event.get()
