@@ -13,3 +13,11 @@ def bfs(start, goal):
                 if neighbor == goal:
                     return new_path
             explored.append(node)
+
+# Depth-first search
+def dfs(node, explored):
+    if node not in explored:
+        explored.append(node)
+        for neighbor in node.neighbors:
+            explored = dfs(neighbor, explored)
+    return explored
