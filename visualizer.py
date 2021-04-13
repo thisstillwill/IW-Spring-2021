@@ -270,6 +270,10 @@ def main():
                             if len(solution_explored) != len(set(solution_explored)):
                                 raise Exception('Duplicate nodes found!')
                             for solution_node in solution_explored:
+                                # Check if user quits the game
+                                if pygame.event.get(pygame.QUIT):
+                                    pygame.quit()
+                                    sys.exit()
                                 if solution_node.type == Node.NodeType.UNBLOCKED:
                                     pygame.draw.rect(screen, PURPLE, (solution_node.x * w + BORDER, solution_node.y * h + BORDER, w - BORDER, h - BORDER))
                                     pygame.display.update()
