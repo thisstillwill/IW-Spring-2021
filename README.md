@@ -14,9 +14,6 @@ This assignment assumes some basic familiarity with Python and the terminal.
 
 ### Mac
 
-<details>
-    <summary>Click to show steps</summary>
-
 1. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository to make your own copy
 2. In the terminal, create and navigate to the folder you want to work in:
 ```
@@ -48,12 +45,7 @@ deactivate
 ```
 You will need to reactivate the virtual environment each time you run the visualizer.
 
-</details>
-
 ### Windows
-
-<details>
-    <summary>Click to show steps</summary>
 
 1. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository to make your own copy
 2. At the command prompt, create and navigate to the folder you want to work in:
@@ -85,8 +77,6 @@ You should see a screen pop up with a grid similar to the screenshot.
 deactivate
 ```
 You will need to reactivate the virtual environment each time you run the visualizer.
-
-</details>
 
 ### Linux
 
@@ -222,23 +212,17 @@ Write your solution in the `bfs` function. Is is guaranteed that the start and g
 
 #### Considerations
 
-<details>
-    <summary>Queues in Python</summary>
+##### Queues in Python
 
 There are multiple ways to use a [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) in Python. Perhaps the easiest is to simply use Python's built-in list as a queue. Because queues are first-in-first-out (FIFO), you can use `queue.pop(0)` to get the the element at the front of the queue.
 
-</details>
-
-<details>
-    <summary>Creating lists</summary>
+##### Creating lists
 
 To create a new list using a sequence from an existing list, you can pass the existing list as an argument to the constructor:
 
 ```
 new_list = list(old_list)
 ```
-
-</details>
 
 ### Step 3. Testing
 
