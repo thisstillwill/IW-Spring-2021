@@ -127,7 +127,7 @@ When the visualizer opens, you can choose to block off certain nodes in the grap
 
 When you are ready, run the reference solution by pressing <kbd>Space</kbd>. Experiment with the visualizer. Try blocking off different parts of the graph to see how the algorithm reacts. At this point, you should be able to answer Question 1 in `submission/submission.md`.
 
-### Part 2. Implementation
+### Step 2. Implementation
 
 You will now write your own implementation of depth-first search. Start by opening `solutions.py`. You should see the function `dfs` at the top of the file. The function takes two arguments:
 
@@ -146,7 +146,7 @@ The visualizer will call your function with `node` initialized to the root (the 
 
 Write your solution in the `dfs` function. You should **NOT** modify any code outside of `solutions.py`.
 
-### Part 3. Testing
+### Step 3. Testing
 
 To test your implementation, run the visualizer with the `-t` or `--test` flag: 
 
@@ -195,7 +195,7 @@ As with the DFS demonstration, you can choose to block or unblock particular nod
 
 When you are ready, run the reference solution by pressing <kbd>Space</kbd>. Experiment with the visualizer. Try blocking off different parts of the graph to see how the algorithm reacts. At this point, you should be able to answer Question 2 in `submission/submission.md`.
 
-### Part 2. Implementation
+### Step 2. Implementation
 
 You will now write your own implementation of breadth-first search. Start by opening `solutions.py`. You should see the function `bfs`. The function takes two arguments:
 
@@ -240,7 +240,7 @@ new_list = list(old_list)
 
 </details>
 
-### Part 3. Testing
+### Step 3. Testing
 
 To test your implementation, run the visualizer with the `-t` or `--test` flag: 
 
