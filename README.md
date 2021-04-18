@@ -2,9 +2,7 @@
 
 > Teaching graph traversal visually
 
-<div align="center">
-    <img src="screenshot.png" width="912" height="940" alt="Visualizer in action">
-</div>
+![Visualizer in action](screenshot.png)
 
 This repository is an assignment designed to teach basic graph traversal algorithms. During the assignment, you will analyze the behavior of the breadth-first search and depth-first search algorithms using the provided visualizer. You will also write your own implementation of each algorithm in Python and test them against the reference solutions.
 
