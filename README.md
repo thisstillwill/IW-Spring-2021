@@ -14,7 +14,7 @@ This assignment assumes some basic familiarity with Python and the terminal.
 
 ### Mac
 
-1. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository to make your own copy
+1. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository or [use it as a template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)
 2. In the terminal, create and navigate to the folder you want to work in:
 ```
 mkdir mysolutions
@@ -47,7 +47,7 @@ You will need to reactivate the virtual environment each time you run the visual
 
 ### Windows
 
-1. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository to make your own copy
+1. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository or [use it as a template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)
 2. At the command prompt, create and navigate to the folder you want to work in:
 ```
 mkdir mysolutions
