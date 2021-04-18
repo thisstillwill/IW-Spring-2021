@@ -197,8 +197,8 @@ def main():
                     pygame.quit()
                     sys.exit()
                 # Set type of selected node
-                elif (pygame.mouse.get_pressed()[1] or pygame.key.get_mods() & 
-                pygame.KMOD_CTRL and pygame.mouse.get_pressed()[0]):
+                elif (pygame.mouse.get_pressed()[2] or (pygame.key.get_mods() & 
+                pygame.KMOD_CTRL and pygame.mouse.get_pressed()[0])):
                     mousePosition = pygame.mouse.get_pos()
                     handleMouseClick(mousePosition, Node.NodeType.UNBLOCKED, graph, screen)
                 elif pygame.mouse.get_pressed()[0]:
