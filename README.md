@@ -14,16 +14,16 @@ This assignment assumes some basic familiarity with Python and the terminal.
 
 ### Mac
 
-1. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository or [use it as a template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)
+- [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository or [use it as a template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)
 
-2. In the terminal, create and navigate to the folder you want to work in:
+- In the terminal, create and navigate to the folder you want to work in:
 
 ```
 mkdir mysolutions
 cd mysolutions
 ```
 
-3. [Clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) this repository into your working directory:
+- [Clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) this repository into your working directory:
 
 ```
 git clone MY-REPO-URL .
@@ -31,25 +31,25 @@ git clone MY-REPO-URL .
 
 *Make sure the “.” character is in the command.*
 
-4. [Create a virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) in your working directory:
+- [Create a virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) in your working directory:
 
 ```
 python3 -m venv env
 ```
 
-5. Activate the virtual environment:
+- Activate the virtual environment:
 
 ```
 source env/bin/activate
 ```
 
-6. Install the required packages:
+- Install the required packages:
 
 ```
 python3 -m pip install -r requirements.txt
 ```
 
-7. Test the visualizer by running a demo:
+- Test the visualizer by running a demo:
 
 ```
 python3 visualizer.py bfs
@@ -57,7 +57,7 @@ python3 visualizer.py bfs
 
 You should see a screen pop up with a grid similar to the screenshot.
 
-8. Close the visualizer and deactivate the virtual environment:
+- Close the visualizer and deactivate the virtual environment:
 
 ```
 deactivate
@@ -67,16 +67,16 @@ You will need to reactivate the virtual environment each time you run the visual
 
 ### Windows
 
-1. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository or [use it as a template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)
+- [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) this repository or [use it as a template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template)
 
-2. At the command prompt, create and navigate to the folder you want to work in:
+- At the command prompt, create and navigate to the folder you want to work in:
 
 ```
 mkdir mysolutions
 cd mysolutions
 ```
 
-3. [Clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) this repository into your working directory:
+- [Clone](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) this repository into your working directory:
 
 ```
 git clone MY-REPO-URL .
@@ -84,25 +84,25 @@ git clone MY-REPO-URL .
 
 *Make sure the “.” character is in the command.*
 
-4. [Create a virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) in your working directory:
+- [Create a virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) in your working directory:
 
 ```
 py -m venv env
 ```
 
-5. Activate the virtual environment and install the required packages:
+- Activate the virtual environment and install the required packages:
 
 ```
 .\env\Scripts\activate
 ```
 
-6. Install the required packages:
+- Install the required packages:
 
 ```
 py -m pip install -r requirements.txt
 ```
 
-7. Test the visualizer by running a demo:
+- Test the visualizer by running a demo:
 
 ```
 py visualizer.py bfs
@@ -110,7 +110,7 @@ py visualizer.py bfs
 
 You should see a screen pop up with a grid similar to the screenshot.
 
-8. Close the visualizer and deactivate the virtual environment:
+- Close the visualizer and deactivate the virtual environment:
 
 ```
 deactivate
