@@ -174,7 +174,7 @@ The visualizer will call your function with `node` initialized to the root (the 
 > 
 > Return the list of explored nodes
 
-To clarify, the return type is a list of *Nodes* representing all nodes that were reached (in order) starting from the root. Write your solution in the `dfs` function. You should **NOT** modify any code outside of `solutions.py`.
+To clarify, the return type is a list of *Nodes* representing all nodes that were reached starting from the root. Write your solution in the `dfs` function. You should **NOT** modify any code outside of `solutions.py`.
 
 ### Step 3. Testing
 
