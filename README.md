@@ -248,7 +248,7 @@ Compared to DFS, it is easiest if you write your solution to operate *non-recurs
 >     - If a neighbor is the goal return the path to it
 >     - Add the current node to the list of explored nodes
 
-To clarify, the return type is a list of *Nodes* representing the path from the start to the goal. Write your solution in the `bfs` function. Is is guaranteed that the start and goal node will never be the same. You should **NOT** modify any code outside of `solutions.py`.
+To clarify, the return type is a list of *Nodes* representing the path from the start to the goal. Write your solution in the `bfs` function. It is guaranteed that the start and goal node will never be the same. You should **NOT** modify any code outside of `solutions.py`.
 
 #### Considerations
 
