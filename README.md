@@ -321,3 +321,6 @@ I can be reached directly via my email (netid `wsvoboda`)
 ### Office Hours
 
 I will be available for “Office Hours” the week this assignment is released. More details to follow.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
