@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{c+c1}{\PYGZsh{} Draw the node on the screen}
+\PYG{k}{def} \PYG{n+nf}{draw}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{screen}\PYG{p}{)}\PYG{p}{:}
+	\PYG{n}{color} \PYG{o}{=} \PYG{k+kc}{None}
+	\PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{type} \PYG{o}{==} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{NodeType}\PYG{o}{.}\PYG{n}{UNBLOCKED}\PYG{p}{:}
+		\PYG{n}{color} \PYG{o}{=} \PYG{n}{WHITE}
+	\PYG{k}{elif} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{type} \PYG{o}{==} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{NodeType}\PYG{o}{.}\PYG{n}{BLOCKED}\PYG{p}{:}
+		\PYG{n}{color} \PYG{o}{=} \PYG{n}{BLACK}
+	\PYG{k}{elif} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{type} \PYG{o}{==} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{NodeType}\PYG{o}{.}\PYG{n}{START}\PYG{p}{:}
+		\PYG{n}{color} \PYG{o}{=} \PYG{n}{RED}
+	\PYG{k}{elif} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{type} \PYG{o}{==} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{NodeType}\PYG{o}{.}\PYG{n}{GOAL}\PYG{p}{:}
+		\PYG{n}{color} \PYG{o}{=} \PYG{n}{BLUE}
+	\PYG{n}{pygame}\PYG{o}{.}\PYG{n}{draw}\PYG{o}{.}\PYG{n}{rect}\PYG{p}{(}\PYG{n}{screen}\PYG{p}{,} \PYG{n}{color}\PYG{p}{,}
+		\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{x} \PYG{o}{*} \PYG{n}{w} \PYG{o}{+} \PYG{n}{BORDER}\PYG{p}{,}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{y} \PYG{o}{*} \PYG{n}{h} \PYG{o}{+} \PYG{n}{BORDER}\PYG{p}{,}
+		\PYG{n}{w} \PYG{o}{\PYGZhy{}} \PYG{n}{BORDER}\PYG{p}{,}
+		\PYG{n}{h} \PYG{o}{\PYGZhy{}} \PYG{n}{BORDER}\PYG{p}{)}\PYG{p}{)}
+	\PYG{n}{pygame}\PYG{o}{.}\PYG{n}{display}\PYG{o}{.}\PYG{n}{update}\PYG{p}{(}\PYG{p}{)}
+\end{Verbatim}

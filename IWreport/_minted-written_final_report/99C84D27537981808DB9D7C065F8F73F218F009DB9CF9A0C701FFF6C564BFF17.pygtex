@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{c+c1}{\PYGZsh{} Depth\PYGZhy{}first search}
+\PYG{k}{def} \PYG{n+nf}{dfs}\PYG{p}{(}\PYG{n}{node}\PYG{p}{,} \PYG{n}{explored}\PYG{p}{)}\PYG{p}{:}
+	\PYG{k}{pass}
+
+\PYG{c+c1}{\PYGZsh{} Breadth\PYGZhy{}first search}
+\PYG{k}{def} \PYG{n+nf}{bfs}\PYG{p}{(}\PYG{n}{start}\PYG{p}{,} \PYG{n}{goal}\PYG{p}{)}\PYG{p}{:}
+	\PYG{k}{pass}
+\end{Verbatim}

@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{c+c1}{\PYGZsh{} Interact with selected node}
+\PYG{k}{def} \PYG{n+nf}{handleMouseClick}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n+nb}{type}\PYG{p}{,} \PYG{n}{graph}\PYG{p}{,} \PYG{n}{screen}\PYG{p}{)}\PYG{p}{:}
+	\PYG{n}{t} \PYG{o}{=} \PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+	\PYG{n}{w} \PYG{o}{=} \PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+	\PYG{n}{g1} \PYG{o}{=} \PYG{n}{t} \PYG{o}{/}\PYG{o}{/} \PYG{p}{(}\PYG{n}{WIDTH} \PYG{o}{/}\PYG{o}{/} \PYG{n}{COLS}\PYG{p}{)}
+	\PYG{n}{g2} \PYG{o}{=} \PYG{n}{w} \PYG{o}{/}\PYG{o}{/} \PYG{p}{(}\PYG{n}{HEIGHT} \PYG{o}{/}\PYG{o}{/} \PYG{n}{ROWS}\PYG{p}{)}
+	\PYG{n}{node} \PYG{o}{=} \PYG{n}{graph}\PYG{p}{[}\PYG{n}{g1}\PYG{p}{]}\PYG{p}{[}\PYG{n}{g2}\PYG{p}{]}
+	\PYG{k}{if} \PYG{p}{(}\PYG{n}{node}\PYG{o}{.}\PYG{n}{type} \PYG{o}{!=} \PYG{n}{Node}\PYG{o}{.}\PYG{n}{NodeType}\PYG{o}{.}\PYG{n}{START}
+		\PYG{o+ow}{and} \PYG{n}{node}\PYG{o}{.}\PYG{n}{type} \PYG{o}{!=} \PYG{n}{Node}\PYG{o}{.}\PYG{n}{NodeType}\PYG{o}{.}\PYG{n}{GOAL}\PYG{p}{)}\PYG{p}{:}
+			\PYG{n}{node}\PYG{o}{.}\PYG{n}{type} \PYG{o}{=} \PYG{n+nb}{type}
+			\PYG{n}{node}\PYG{o}{.}\PYG{n}{draw}\PYG{p}{(}\PYG{n}{screen}\PYG{p}{)}
+\end{Verbatim}

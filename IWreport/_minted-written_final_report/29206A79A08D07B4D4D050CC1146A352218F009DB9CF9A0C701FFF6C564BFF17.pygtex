@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{c+c1}{\PYGZsh{} All possible gamestates}
+\PYG{k}{class} \PYG{n+nc}{GameState}\PYG{p}{(}\PYG{n}{Enum}\PYG{p}{)}\PYG{p}{:}
+	\PYG{n}{INPUT} \PYG{o}{=} \PYG{n}{auto}\PYG{p}{(}\PYG{p}{)}
+	\PYG{n}{DEMO} \PYG{o}{=} \PYG{n}{auto}\PYG{p}{(}\PYG{p}{)}
+	\PYG{n}{TEST} \PYG{o}{=} \PYG{n}{auto}\PYG{p}{(}\PYG{p}{)}
+	\PYG{n}{END} \PYG{o}{=} \PYG{n}{auto}\PYG{p}{(}\PYG{p}{)}
+\end{Verbatim}

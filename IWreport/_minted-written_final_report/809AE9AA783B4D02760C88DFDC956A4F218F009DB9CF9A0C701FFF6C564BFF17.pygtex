@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8}]
+\PYG{c+c1}{\PYGZsh{} A single vertex in the graph}
+\PYG{k}{class} \PYG{n+nc}{Node}\PYG{p}{:}
+	\PYG{c+c1}{\PYGZsh{} All possible node types}
+	\PYG{k}{class} \PYG{n+nc}{NodeType}\PYG{p}{(}\PYG{n}{Enum}\PYG{p}{)}\PYG{p}{:}
+		\PYG{n}{UNBLOCKED} \PYG{o}{=} \PYG{n}{auto}\PYG{p}{(}\PYG{p}{)}
+		\PYG{n}{BLOCKED} \PYG{o}{=} \PYG{n}{auto}\PYG{p}{(}\PYG{p}{)}
+		\PYG{n}{START} \PYG{o}{=} \PYG{n}{auto}\PYG{p}{(}\PYG{p}{)}
+		\PYG{n}{GOAL} \PYG{o}{=} \PYG{n}{auto}\PYG{p}{(}\PYG{p}{)}
+	\PYG{c+c1}{\PYGZsh{} Create a new node}
+	\PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)} \PYG{o}{\PYGZhy{}}\PYG{o}{\PYGZgt{}} \PYG{k+kc}{None}\PYG{p}{:}
+		\PYG{c+c1}{\PYGZsh{} Position on screen}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{x} \PYG{o}{=} \PYG{n}{x}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{y} \PYG{o}{=} \PYG{n}{y}
+		\PYG{c+c1}{\PYGZsh{} Neighboring vertices}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{neighbors} \PYG{o}{=} \PYG{p}{[}\PYG{p}{]}
+		\PYG{c+c1}{\PYGZsh{} Type of node}
+		\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{type} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{NodeType}\PYG{o}{.}\PYG{n}{UNBLOCKED}
+	\PYG{c+c1}{\PYGZsh{} Draw the node on the screen}
+	\PYG{k}{def} \PYG{n+nf}{draw}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{screen}\PYG{p}{)}\PYG{p}{:}
+	\PYG{esc}{\ldots}
+	\PYG{c+c1}{\PYGZsh{} Connect the node to each of its neighbors}
+	\PYG{k}{def} \PYG{n+nf}{addNeighbors}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{graph}\PYG{p}{)}\PYG{p}{:}
+	\PYG{esc}{\ldots}
+\end{Verbatim}
