@@ -1,4 +1,4 @@
-**UPDATE 05/10/21:** As part of my Spring 2021 independent work, the assignment below was evaluated by real students. Their feedback has been anonymized and placed into the `feedback/` folder for interested parties. The reference solutions for the assignment are also now available in `reference_solutions.py`. Finally, the written report for this project can be found in `IWreport/`. The report can be compiled using the included makefile.
+**UPDATE 05/10/21:** As part of my Spring 2021 independent work, the assignment below was evaluated by real students. Their feedback has been anonymized and placed into the `feedback/` folder for interested parties. The reference solutions for the assignment are also now available in `reference_solutions.py`. Finally, the written report for this project can be found in `IWreport/`. The report can be compiled using the included makefile or downloaded [here](https://github.com/disstillwill/IW-Spring-2021/blob/master/IWreport/written_final_report.pdf).
 
 # IW Spring 2021
 
