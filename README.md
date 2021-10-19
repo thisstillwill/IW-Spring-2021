@@ -1,4 +1,4 @@
-**UPDATE 05/10/21:** As part of my Spring 2021 independent work, the assignment below was evaluated by real students. Their feedback has been anonymized and placed into the `feedback/` folder for interested parties. The reference solutions for the assignment are also now available in `reference_solutions.py`. Finally, the written report for this project can be found in `IWreport/`. The report can be compiled using the included makefile or downloaded [here](https://github.com/disstillwill/IW-Spring-2021/blob/master/IWreport/written_final_report.pdf).
+**UPDATE 05/10/21:** As part of my Spring 2021 independent work, the assignment below was evaluated by real students. Their feedback has been anonymized and placed into the `feedback/` folder for interested parties. The reference solutions for the assignment are also now available in `reference_solutions.py`. Finally, the written report for this project can be found in `IWreport/`. The report can be compiled using the included makefile or downloaded [here](https://github.com/thisstillwill/IW-Spring-2021/blob/master/IWreport/written_final_report.pdf).
 
 # IW Spring 2021
 
@@ -31,7 +31,7 @@ cd mysolutions
 git clone MY-REPO-URL .
 ```
 
-*Make sure the “.” character is in the command.*
+_Make sure the “.” character is in the command._
 
 - [Create a virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) in your working directory:
 
@@ -84,7 +84,7 @@ cd mysolutions
 git clone MY-REPO-URL .
 ```
 
-*Make sure the “.” character is in the command.*
+_Make sure the “.” character is in the command._
 
 - [Create a virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/) in your working directory:
 
@@ -126,7 +126,7 @@ You probably already know what to do.
 
 ## Background
 
-A [graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)) describes a set of *nodes* and the relationships between them. [Graph theory](https://en.wikipedia.org/wiki/Graph_theory) is a core focus area of computer science, and many real-world problems can be represented using graphs. Graphs, for example, can be contextualized to represent networks, relationships, navigation, and more.
+A [graph](<https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)>) describes a set of _nodes_ and the relationships between them. [Graph theory](https://en.wikipedia.org/wiki/Graph_theory) is a core focus area of computer science, and many real-world problems can be represented using graphs. Graphs, for example, can be contextualized to represent networks, relationships, navigation, and more.
 
 This assignment explores the use of different algorithms in [graph traversal](https://en.wikipedia.org/wiki/Graph_traversal). The visualizer represents the graph as a grid of nodes. Each node (if not on the edge) is connected to four neigboring nodes. By using the connections between nodes, it is possible to successively visit each reachable node in the graph.
 
@@ -164,23 +164,24 @@ When you are ready, run the reference solution by pressing <kbd>Space</kbd>. Exp
 You will now write your own implementation of depth-first search. Start by opening `solutions.py`. You should see the function `dfs` at the top of the file. The function takes two arguments:
 
 - `node` - the current node being checked
-    - The list of neighbors can be accessed through `node.neighbors`
+  - The list of neighbors can be accessed through `node.neighbors`
 - `explored` - a list of nodes that have already been checked
 
-The visualizer will call your function with `node` initialized to the root (the red square in the visualizer). You should write your function to operate [recursively](https://en.wikipedia.org/wiki/Recursion_(computer_science)). Consider the following pseudocode:
+The visualizer will call your function with `node` initialized to the root (the red square in the visualizer). You should write your function to operate [recursively](<https://en.wikipedia.org/wiki/Recursion_(computer_science)>). Consider the following pseudocode:
 
 > If the current node hasn't been seen before:
+>
 > - Add the node to the list of explored nodes
 > - For each of the node's neighbors:
->     - Recursively check each neighbor and update the explored list 
-> 
+>   - Recursively check each neighbor and update the explored list
+>
 > Return the list of explored nodes
 
-To clarify, the return type is a list of *Nodes* representing all nodes that were reached starting from the root. Write your solution in the `dfs` function. You should **NOT** modify any code outside of `solutions.py`.
+To clarify, the return type is a list of _Nodes_ representing all nodes that were reached starting from the root. Write your solution in the `dfs` function. You should **NOT** modify any code outside of `solutions.py`.
 
 ### Step 3. Testing
 
-To test your implementation, run the visualizer with the `-t` or `--test` flag: 
+To test your implementation, run the visualizer with the `-t` or `--test` flag:
 
 #### Mac/Linux
 
@@ -196,10 +197,10 @@ py visualizer.py dfs -t
 
 The visualizer will first show the reference solution after pressing <kbd>Space</kbd>. Press <kbd>Space</kbd> again to test your own implementation. One of two things will happen:
 
-1. Your implementation is correct and the message *“All tests passed!”* will show
-2. Your implementation is ***incorrect*** and a descriptive error message will show
+1. Your implementation is correct and the message _“All tests passed!”_ will show
+2. Your implementation is **_incorrect_** and a descriptive error message will show
 
-If your implementation is correct, take a screenshot showing the *“All tests passed!”* message. Name this file `dfs.png` and place it into the `submission/` folder. If your solution has errors, revise your code and test again before moving on.
+If your implementation is correct, take a screenshot showing the _“All tests passed!”_ message. Name this file `dfs.png` and place it into the `submission/` folder. If your solution has errors, revise your code and test again before moving on.
 
 ## Part 2: Breadth-First Search
 
@@ -236,27 +237,28 @@ You will now write your own implementation of breadth-first search. Start by ope
 
 A node's neigbors can still be accessed through `node.neighbors`
 
-Compared to DFS, it is easiest if you write your solution to operate *non-recursively*. Consider the following pseudocode:
+Compared to DFS, it is easiest if you write your solution to operate _non-recursively_. Consider the following pseudocode:
 
 > Create a list to track explored nodes
-> 
+>
 > Create a queue of paths to check, and add the starting node to it
-> 
+>
 > While the queue isn't empty:
+>
 > - Get the first path from the queue
 > - Get the last node from the path
 > - If the node hasn't been seen yet:
->     - Make a new path with each neighbor and the current path and add it to the queue
->     - If a neighbor is the goal return the path to it
->     - Add the current node to the list of explored nodes
+>   - Make a new path with each neighbor and the current path and add it to the queue
+>   - If a neighbor is the goal return the path to it
+>   - Add the current node to the list of explored nodes
 
-To clarify, the return type is a list of *Nodes* representing the path from the start to the goal. Write your solution in the `bfs` function. It is guaranteed that the start and goal node will never be the same. You should **NOT** modify any code outside of `solutions.py`.
+To clarify, the return type is a list of _Nodes_ representing the path from the start to the goal. Write your solution in the `bfs` function. It is guaranteed that the start and goal node will never be the same. You should **NOT** modify any code outside of `solutions.py`.
 
 #### Considerations
 
 ##### Queues in Python
 
-There are multiple ways to use a [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) in Python. Perhaps the easiest is to simply use Python's built-in list as a queue. Because queues are first-in-first-out (FIFO), you can use `queue.pop(0)` to get the the element at the front of the queue.
+There are multiple ways to use a [queue](<https://en.wikipedia.org/wiki/Queue_(abstract_data_type)>) in Python. Perhaps the easiest is to simply use Python's built-in list as a queue. Because queues are first-in-first-out (FIFO), you can use `queue.pop(0)` to get the the element at the front of the queue.
 
 ##### Creating lists
 
@@ -268,7 +270,7 @@ new_list = list(old_list)
 
 ### Step 3. Testing
 
-To test your implementation, run the visualizer with the `-t` or `--test` flag: 
+To test your implementation, run the visualizer with the `-t` or `--test` flag:
 
 #### Mac/Linux
 
@@ -284,10 +286,10 @@ py visualizer.py bfs -t
 
 The visualizer will first show the reference solution after pressing <kbd>Space</kbd>. Press <kbd>Space</kbd> again to test your own implementation. One of two things will happen:
 
-1. Your implementation is correct and the message *“All tests passed!”* will show
-2. Your implementation is ***incorrect*** and a descriptive error message will show
+1. Your implementation is correct and the message _“All tests passed!”_ will show
+2. Your implementation is **_incorrect_** and a descriptive error message will show
 
-If your implementation is correct, take a screenshot showing the *“All tests passed!”* message. Name this file `bfs.png` and place it into the `submission/` folder. If your solution has errors, revise your code and test again before moving on.
+If your implementation is correct, take a screenshot showing the _“All tests passed!”_ message. Name this file `bfs.png` and place it into the `submission/` folder. If your solution has errors, revise your code and test again before moving on.
 
 ## Submission
 
@@ -297,9 +299,10 @@ Your submission will be your fork of this repository. You should have at a minim
 - `submission/dfs.png`
 - `submission/bfs.png`
 - `submission/submission.md`
-    - Make sure that you have answered *all* questions in `submission.md`.
+  - Make sure that you have answered _all_ questions in `submission.md`.
 
 Submit any local changes to your repository on GitHub:
+
 ```
 git add .
 git commit -m "Submission"
@@ -309,7 +312,7 @@ git push -u origin master
 Share this repository with me (William Svoboda). This can be accomplished in two ways:
 
 1. [Add me as a collaborator](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository) to your repository
-    - This is required if your repository is private
+   - This is required if your repository is private
 2. Send a link to your repository to my email (netid `wsvoboda`)
 
 ## Help!
@@ -325,4 +328,5 @@ I can be reached directly via my email (netid `wsvoboda`)
 I will be available for “Office Hours” the week this assignment is released. More details to follow.
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
